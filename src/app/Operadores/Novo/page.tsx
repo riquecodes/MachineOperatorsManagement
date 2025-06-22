@@ -1,10 +1,11 @@
-import CancelButton from "@/components/buttonCancel";
+import FormOperator from "@/components/forms/FormOperator";
+import { Box, Typography } from "@mui/material";
 
 export default function NewOperatorPage() {
     return (
-        <div className="flex justify-between items-center ml-[10%] mr-[10%]">
-            <h1 className="mt-4 text-3xl">Adicionar Operador</h1>
-            <CancelButton/>
-        </div>
+        <Box sx={{ display: 'flex', flexDirection: 'column', marginTop: 5, alignItems: 'center', gap: 5 }}>
+            <Typography variant="h4">Adicionar Operador</Typography>
+            <FormOperator/>
+        </Box>
     );
 }

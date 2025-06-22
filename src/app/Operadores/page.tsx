@@ -1,16 +1,19 @@
-import ButtonNewOperator from "@/components/buttonNewOperator"
-import OperatorsTable from "@/components/operatorsTable"
+'use client'
+
+import ButtonNewOperator from "@/components/buttons/NewButton"
+import OperatorsTable from "@/components/operatorsTable/OperatorsTable"
+import { Box, Typography } from "@mui/material"
 
 export default function OperatorsPage() {
     return(
         <>
-            <div className="flex justify-between items-center ml-[10%] mr-[10%]">
-                <h1 className="mt-4 text-3xl">Manipulação de Operadores</h1>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', marginLeft: '10%', marginRight: '10%' }}>
+                <Typography variant="h5" sx={{ marginTop: 3 }}>Registros de Operadores</Typography>
                 <ButtonNewOperator/>
-            </div>
-            <div>
+            </Box>
+            <Box>
                 <OperatorsTable/>
-            </div>
+            </Box>
         </>
     )
 }

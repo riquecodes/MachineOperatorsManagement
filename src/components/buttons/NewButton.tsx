@@ -1,15 +1,21 @@
 'use client'
 
+import { Box } from '@mui/material';
 import Button from '@mui/material/Button';
+import { useRouter } from 'next/navigation';
 
-export function addNewOperator() {
-    
-    console.log("New operator added");
-}
 
 export default function ButtonNewOperator() {
+    
+    const router = useRouter();
+
+    function addNewOperator() {
+        router.push('/Operadores/Novo');
+        console.log("New operator added");
+    }
+
     return (
-        <div className="flex justify-end mt-5">
+        <Box sx={{ display: 'flex', justifyContent: 'end', marginTop: 2}}>
             <Button 
                 sx={{ 
                     backgroundColor: '#00a63e', 
@@ -26,6 +32,6 @@ export default function ButtonNewOperator() {
                 Novo Operador
 
             </Button>
-        </div>
+        </Box>
     );
 }

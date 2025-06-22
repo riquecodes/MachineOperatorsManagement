@@ -1,12 +1,13 @@
 'use client'
 
-import { Button } from "@mui/material";
+import { Box } from "@mui/material";
+import Button from "@mui/material/Button";
 import { useRouter } from "next/navigation";
 
 export default function CancelButton() {
     const router = useRouter();
     return (
-        <div>
+        <Box>
             <Button
                 sx={{ 
                     backgroundColor: '#e03f17', 
@@ -18,6 +19,6 @@ export default function CancelButton() {
             >
                 Cancelar
             </Button>
-        </div>
+        </Box>
     )        
 }
