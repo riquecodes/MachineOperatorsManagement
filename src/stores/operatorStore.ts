@@ -1,15 +1,12 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-
-type Operator = {
-    matricula: string;
-    nome: string;
-    cpf: string;
-};
+import { Operator } from '@/types/operator';
 
 type OperatorStore = {
     operators: Operator[];
     addOperator: (operator: Operator) => void;
+    updateOperator: (operator: Operator) => void;
+    deleteOperator: (operator: Operator) => void;
 };
 
 export const useOperatorStore = create<OperatorStore>()(
@@ -19,6 +16,16 @@ export const useOperatorStore = create<OperatorStore>()(
             addOperator: (operator) =>
             set((state) => ({
                 operators: [...state.operators, operator],
+            })),
+            updateOperator: (operator) =>
+            set((state) => ({
+                operators: state.operators.map((op) =>
+                    op.id === operator.id ? operator : op
+                ),
+            })),
+            deleteOperator: (operator) =>
+            set((state) => ({
+                operators: state.operators.filter((op) => op.id !== operator.id),
             })),
         }),
         {

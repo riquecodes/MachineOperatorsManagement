@@ -1,53 +1,48 @@
 'use client';
 
 import { Box, TextField } from "@mui/material";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import SaveButton from "../buttons/SaveButton";
 import CancelButton from "../buttons/CancelButton";
 import { useRouter } from "next/navigation";
 import { useOperatorStore } from "@/stores/operatorStore";
+import { Operator } from "@/types/operator";
+import { isOperatorFormValid, cpfRules, matriculaExists } from "@/utils/operatorValidation";
+import { v4 as uuidv4 } from 'uuid';
 
 export default function FormOperator() {
 
     const addOperator = useOperatorStore((state) => state.addOperator);
     const operators = useOperatorStore((state) => state.operators);
-    const [operator, setOperator] = useState({ matricula: '', nome: '', cpf: '' });
+    const [operator, setOperator] = useState<Operator>({ id: '', matricula: '', nome: '', cpf: '' });
     const router = useRouter();
     const [error, setError] = useState(false);
 
     const handleCpfChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const cpf = e.target.value;
-        if (/^\d*$/.test(cpf)) {
+        if (cpfRules(cpf)) {
             setOperator({ ...operator, cpf });
         }
     };
 
     const handleSalvar = () => {
-
-        function matriculaExists() {
-            return operators.some(op => op.matricula.trim() === operator.matricula.trim());
-        }
-
-        if (matriculaExists()) {
+        if (matriculaExists(operator.matricula, operators)) {
             setError(true);
             return;
         }
 
-        addOperator(operator);
-        router.push('/Operadores')
-    }
+        const newOperator = {
+            ...operator,
+            id: uuidv4()
+        };
 
-    const isFormValid = useMemo(() => {
-        return !operator.nome || operator.nome.trim() === '' ||
-               !operator.matricula || operator.matricula.trim() === '' ||
-               !operator.cpf || operator.cpf.trim() === '' ||
-               operator.cpf.length !== 11;
-    }, [operator.nome, operator.matricula, operator.cpf]);
+        addOperator(newOperator);
+        router.push('/Operadores')
+    };
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, width: '80%', mx: 'auto' }}>
             <TextField 
-                id="filled-basic" 
                 label="Matrícula" 
                 variant="filled" 
                 required
@@ -56,7 +51,7 @@ export default function FormOperator() {
                     setOperator({...operator, matricula: e.target.value});
                     setError(false) 
                 }}
-                error={error || operator.matricula.length === 0}
+                error={error}
                 helperText={error ? "Matricula já cadastrada" : ''}
                 sx={{
                     '& .MuiInputBase-input': { fontSize: '1.4rem' },
@@ -68,13 +63,11 @@ export default function FormOperator() {
             />
 
             <TextField 
-                id="filled-basic" 
                 label="Nome Completo" 
-                variant="filled" 
+                variant="filled"
                 required
                 value={operator.nome}
                 onChange={(e) => setOperator({...operator, nome: e.target.value})}
-                error={operator.nome.length === 0}
                 sx={{
                     '& .MuiInputBase-input': { fontSize: '1.4rem' },
                     '& .MuiInputLabel-root': { fontSize: '1.3rem' },
@@ -84,14 +77,12 @@ export default function FormOperator() {
             />
 
             <TextField 
-                id="filled-basic" 
                 label="CPF" 
                 variant="filled"    
                 required 
                 value={operator.cpf}
                 onChange={handleCpfChange}
                 helperText="Apenas números"
-                error={operator.cpf.length !== 11}
                 inputProps={{ maxLength: 11, inputMode: 'numeric', pattern: '[0-9]*' }}
                 sx={{
                     '& .MuiInputBase-input': { fontSize: '1.4rem' },
@@ -102,7 +93,7 @@ export default function FormOperator() {
                 }} 
             />
             <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: 2, gap: 4 }}>
-                <SaveButton onClick={handleSalvar} disabled={isFormValid}/>
+                <SaveButton onClick={handleSalvar} disabled={!isOperatorFormValid(operator)}/>
                 <CancelButton/>
             </Box>
         </Box>
