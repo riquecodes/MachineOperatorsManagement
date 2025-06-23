@@ -14,7 +14,7 @@ export default function ConfirmDeleteModal({ openDeleteModal, onClose, operatorT
 
     const deleteOperator = useOperatorStore((state) => state.deleteOperator);
 
-    const handleExclude = () => {
+    const handleExclude = () => {;
         deleteOperator(operatorToDelete);
         onClose();
     };

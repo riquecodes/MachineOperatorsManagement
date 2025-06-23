@@ -18,6 +18,7 @@ export default function OperatorsTable() {
     
     const operators = useOperatorStore((state) => state.operators);
     const [editingOperator, setEditingOperator] = useState<Operator>({ id: '', matricula: '', nome: '', cpf: '' });
+    const [deletingOperator, setDeletingOperator] = useState<Operator>({ id: '', matricula: '', nome: '', cpf: '' });
     const [openEditModal, setOpenEditModal] = useState(false);
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
@@ -32,6 +33,7 @@ export default function OperatorsTable() {
     const handleDelete = (matricula: string) => {
         const operator = operators.find(operator => operator.matricula.trim() === matricula.trim());
         if (operator) {
+            setDeletingOperator({ ...operator });
             setOpenDeleteModal(true);
         }
     }
@@ -78,11 +80,11 @@ export default function OperatorsTable() {
                     />
                 )}
 
-                {openDeleteModal && (
+                {deletingOperator && (
                     <ConfirmDeleteModal
                         openDeleteModal={openDeleteModal}
                         onClose={() => setOpenDeleteModal(false)}
-                        operatorToDelete={editingOperator}
+                        operatorToDelete={deletingOperator}
                     />
                 )}
             </Table>

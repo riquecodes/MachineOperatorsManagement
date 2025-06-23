@@ -7,7 +7,7 @@ export default function DeleteButton(props: ButtonProps) {
         <Box>
             <Button
                 sx={{ 
-                    backgroundColor: '#d32f2f', 
+                    backgroundColor: '#e03f17', 
                     color: '#fff', 
                     padding: '10px 20px',
                 }} 

@@ -8,7 +8,7 @@ interface CancelButtonProps extends ButtonProps {
     onClick?: () => void;
 }
 
-export default function CancelButton( { onClick, ...props }: CancelButtonProps) {
+export default function CancelButton( { variant = "contained", onClick, ...props }: CancelButtonProps) {
     const router = useRouter();
 
     function handleClick() {
@@ -23,11 +23,12 @@ export default function CancelButton( { onClick, ...props }: CancelButtonProps) 
         <Box>
             <Button
                 sx={{ 
-                    backgroundColor: '#e03f17', 
-                    color: '#fff', 
+                    backgroundColor: variant === "contained" ? '#e03f17' : undefined,
+                    color: variant === "contained" ? '#fff' : '#e03f17',
+                    borderColor: variant === "contained" ? undefined : '#e03f17',
                     padding: '10px 20px',
                 }}
-                variant="contained"
+                variant={variant}
                 onClick={handleClick}
                 {...props}
             >
