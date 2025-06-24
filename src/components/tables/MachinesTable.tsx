@@ -62,7 +62,7 @@ export default function MachinesTable() {
         marginLeft: "auto",
         marginRight: "auto",
         bgcolor: "#ecf7ed",
-        maxHeight: 400,
+        maxHeight: 700,
         overflowY: 'auto',
         marginBottom: 2
       }}
