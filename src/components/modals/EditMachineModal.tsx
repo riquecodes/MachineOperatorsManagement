@@ -77,7 +77,7 @@ export default function EditMachineModal({
           gap: 3,
         }}
       >
-        <Typography variant="h6">Editar Operador</Typography>
+        <Typography variant="h6">Editar Máquina</Typography>
         <TextField
           label="Matrícula"
           variant="filled"
