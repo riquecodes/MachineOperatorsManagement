@@ -69,4 +69,4 @@ npm run lint      # Executa linter para validações
 
 ## 🙋‍♂️ Autor
 Desenvolvido por Henrique Brum
-Entre em contato: [LinkedIn]([https://www.linkedin.com/in/riqueriva/]) | [GitHub]([https://github.com/riquecodes])
+Entre em contato: [LinkedIn](https://www.linkedin.com/in/riqueriva/) | [GitHub](https://github.com/riquecodes)
