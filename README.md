@@ -1,65 +1,72 @@
-# Sistema de Gerenciamento de Operadores e Máquinas
+# 📋 Sistema de Gerenciamento de Operadores e Máquinas
 
-Projeto desenvolvido usando **Next.js** versão 15.3.4, **React 19** e **Material UI 7**.
+Este é um sistema de gerenciamento de operadores e máquinas desenvolvido com **Next.js**, **React**, **TypeScript**, **Material UI** e **Zustand** para o gerenciamento de estado. Ele permite cadastrar, editar, listar e excluir operadores e máquinas de forma prática e intuitiva.
 
-## Tecnologias utilizadas
+## 🛠 Tecnologias Utilizadas
 
-- Next.js 15.3.4
-- React 19.0.0
-- Material UI 7.1.2
-- Styled Components 6.1.19
-- Zustand 5.0.5
-- Tailwind CSS 4 (com PostCSS)
-- TypeScript 5.0
+- [Next.js 15](https://nextjs.org/)
+- [React 19](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Material UI (MUI)](https://mui.com/)
+- [Zustand](https://zustand-demo.pmnd.rs/)
+- [UUID](https://www.npmjs.com/package/uuid)
 
-## Como executar o projeto localmente
+---
 
-### Pré-requisitos
+## 🚀 Como executar o projeto
 
-- Node.js instalado (recomendo a versão 18 ou superior)
-- npm (vem junto com o Node.js) ou yarn
+### 1. Clone o repositório
 
-### Passos para rodar
-
-1. Clone o repositório
 ```
-git clone <URL_DO_REPOSITÓRIO>
-````
+git clone https://github.com/riquecodes/MachineOperatorsManagement.git
+cd MachineOperatorsManagement
+```
 
-2. Acesse a pasta do projeto
-````
-cd teste-tec-next
-````
-
-3. Instale as dependências
-Com npm:
-````
+2. Instale as dependências
+```
 npm install
-````
-
-Ou com yarn:
-````
+# ou
 yarn
-````
+```
 
-4. Rode o servidor de desenvolvimento
-Com npm:
-````
+3. Execute a aplicação em modo de desenvolvimento
+```
 npm run dev
-````
-
-Ou com yarn:
-````
+# ou
 yarn dev
-````
+```
 
-5. Abra seu navegador e acesse
-````
-http://localhost:3000
-````
+A aplicação estará disponível em: http://localhost:3000
 
-Scripts disponíveis
-- dev: inicia o servidor de desenvolvimento Next.js
-- build: gera a build de produção
-- start: inicia o servidor com a build de produção
-- lint: executa o lint para verificar possíveis erros no código
+
+## 🧾 Funcionalidades
+
+✅ Operadores
+- Cadastro de operadores com matrícula única
+- Validação de CPF
+- Edição e exclusão com confirmação via modal
+- Listagem em tabela com cabeçalho fixo e scroll automático
+
+✅ Máquinas
+- Cadastro de máquinas com código identificador único
+- Edição e exclusão com confirmação via modal
+- Listagem em tabela estilizada
+
+## 🧪 Validações e UX
+- Validação de campos obrigatórios (matrícula, nome, CPF)
+- Prevenção de duplicidade
+- Feedback visual com erros nos campos
+- Desabilitação e estilização de botões conforme o estado do formulário
+- Scroll e layout responsivo usando Material UI
+
+## 📦 Scripts Disponíveis
+```
+npm run dev       # Executa em modo de desenvolvimento
+npm run build     # Compila a aplicação para produção
+npm run start     # Inicia a versão de produção
+npm run lint      # Executa linter para validações
+```
+
+## 🙋‍♂️ Autor
+Desenvolvido por Henrique Brum
+Entre em contato: [LinkedIn]([https://www.linkedin.com/in/riqueriva/]) | [GitHub]([https://github.com/riquecodes])
