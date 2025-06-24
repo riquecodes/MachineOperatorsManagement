@@ -2,56 +2,52 @@ import { Box, Modal, TextField, Typography } from "@mui/material";
 import CancelButton from "../buttons/CancelButton";
 import SaveButton from "../buttons/SaveButton";
 import { useEffect, useState } from "react";
-import { Operator } from "@/types/operator";
+import { Machine } from "@/types/machine";
 import {
-  matriculaExists,
-  cpfRules,
-  isOperatorFormValid,
-} from "@/utils/operatorValidation";
-import { useOperatorStore } from "@/stores/operatorStore";
+  codIdentificadorExists,
+  isMachineFormValid,
+} from "@/utils/machineValidation";
+import { useMachineStore } from "@/stores/machineStore";
 
-interface EditOperatorModalProps {
+interface EditMachineModalProps {
   openEditModal: boolean;
   onClose: () => void;
-  operatorToEdit: Operator;
+  machineToEdit: Machine;
 }
 
-export default function EditOperatorModal({
+export default function EditMachineModal({
   openEditModal,
   onClose,
-  operatorToEdit,
-}: EditOperatorModalProps) {
-  const updateOperator = useOperatorStore((state) => state.updateOperator);
-  const operators = useOperatorStore((state) => state.operators);
+  machineToEdit,
+}: EditMachineModalProps) {
+  const updateMachine = useMachineStore((state) => state.updateMachine);
+  const machines = useMachineStore((state) => state.machines);
 
-  const [operator, setOperator] = useState<Operator>(operatorToEdit);
+  const [machine, setMachine] = useState<Machine>(machineToEdit);
   useEffect(() => {
-    setOperator(operatorToEdit);
-  }, [operatorToEdit]);
+    setMachine(machineToEdit);
+  }, [machineToEdit]);
 
   const [error, setError] = useState(false);
   useEffect(() => {
-    setOperator(operatorToEdit);
+    setMachine(machineToEdit);
     setError(false);
-  }, [operatorToEdit]);
+  }, [machineToEdit]);
 
   const handleSalvar = () => {
     if (
-      matriculaExists(operator.matricula, operators, operatorToEdit.matricula)
+      codIdentificadorExists(
+        machine.codIdentificador,
+        machines,
+        machineToEdit.codIdentificador
+      )
     ) {
       setError(true);
       return;
     }
 
-    updateOperator(operator);
+    updateMachine(machine);
     onClose();
-  };
-
-  const handleCpfChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const cpf = e.target.value;
-    if (cpfRules(cpf)) {
-      setOperator({ ...operator!, cpf });
-    }
   };
 
   return (
@@ -86,13 +82,13 @@ export default function EditOperatorModal({
           label="Matrícula"
           variant="filled"
           required
-          value={operator.matricula}
+          value={machine.codIdentificador}
           onChange={(e) => {
-            setOperator({ ...operator!, matricula: e.target.value });
+            setMachine({ ...machine!, codIdentificador: e.target.value });
             setError(false);
           }}
           error={error}
-          helperText={error ? "Matricula já cadastrada" : ""}
+          helperText={error ? "Código Identificador já cadastrado" : ""}
           sx={{
             "& .MuiInputBase-input": { fontSize: "1.4rem" },
             "& .MuiInputLabel-root": { fontSize: "1.3rem" },
@@ -108,8 +104,8 @@ export default function EditOperatorModal({
           label="Nome Completo"
           variant="filled"
           required
-          value={operator.nome}
-          onChange={(e) => setOperator({ ...operator!, nome: e.target.value })}
+          value={machine.nome}
+          onChange={(e) => setMachine({ ...machine!, nome: e.target.value })}
           sx={{
             "& .MuiInputBase-input": { fontSize: "1.4rem" },
             "& .MuiInputLabel-root": { fontSize: "1.3rem" },
@@ -120,28 +116,6 @@ export default function EditOperatorModal({
           }}
         />
 
-        <TextField
-          label="CPF"
-          variant="filled"
-          required
-          value={operator.cpf}
-          onChange={handleCpfChange}
-          helperText="Apenas números"
-          inputProps={{
-            maxLength: 11,
-            inputMode: "numeric",
-            pattern: "[0-9]*",
-          }}
-          sx={{
-            "& .MuiInputBase-input": { fontSize: "1.4rem" },
-            "& .MuiInputLabel-root": { fontSize: "1.3rem" },
-            "& .MuiFormHelperText-root": { fontSize: "1rem" },
-            "& .MuiFilledInput-underline:after": {
-              borderBottomColor: "#00a63e",
-            },
-            "& label.Mui-focused": { color: "#00a63e" },
-          }}
-        />
         <Box
           sx={{
             display: "flex",
@@ -152,7 +126,7 @@ export default function EditOperatorModal({
         >
           <SaveButton
             onClick={handleSalvar}
-            disabled={!isOperatorFormValid(operator)}
+            disabled={!isMachineFormValid(machine)}
           />
           <CancelButton onClick={onClose} />
         </Box>
